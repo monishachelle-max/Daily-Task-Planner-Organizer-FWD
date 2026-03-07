@@ -94,7 +94,7 @@
 <!-- Sidebar Component - Copy this into each page -->
 <div class="sidebar">
     <div class="sidebar-header">
-        <div class="logo" onclick="goToDashboard()">
+        <div class="logo" onclick="window.location.href='index.html'">
             <div class="logo-icon">P</div>
             <div class="logo-text">Plan<span>It</span></div>
         </div>
@@ -177,9 +177,9 @@
         // Check if we're in the pages folder
         const path = window.location.pathname;
         if (path.includes('/pages/')) {
-            window.location.href = '../home.html';
+            window.location.href = '../index.html';
         } else {
-            window.location.href = 'home.html';
+            window.location.href = 'index.html';
         }
     }
 
@@ -214,8 +214,8 @@
             }
         });
         
-        // Special case for home.html
-        if (currentPath === 'home.html' || currentPath === '') {
+        // Special case for index.html
+        if (currentPath === 'index.html' || currentPath === '') {
             document.getElementById('nav-personal-dashboard')?.classList.add('active');
         }
     }
