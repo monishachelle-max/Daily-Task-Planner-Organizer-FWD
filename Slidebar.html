@@ -1,0 +1,222 @@
+<!-- <!-- Sidebar Component - Copy this into each page
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo" onclick="window.location.href='../home.html'">
+            <div class="logo-icon">P</div>
+            <div class="logo-text">Plan<span>It</span></div>
+        </div>
+    </div>
+
+    <!-- User Profile -->
+    <!--<div class="user-profile" id="userProfile">
+        <div class="user-name" id="displayName">Monisha</div>
+        <div class="user-email" id="displayEmail">monisha@email.com</div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <!--<div class="nav-menu">
+        <!-- Smart Tasks -->
+        <a href="pages/smart-tasks.html" class="nav-item" onclick="setActive(this)">
+            <i>✓</i>
+            <span>Smart Tasks</span>
+       <!-- </a>-->
+
+        <!-- Focus Timer -->
+        <!--<a href="pages/focus-timer.html" class="nav-item" onclick="setActive(this)">
+            <i>⏱️</i>
+            <span>Focus Timer</span>
+        </a>
+
+        <!-- My Schedule -->
+        <!--<a href="pages/my-schedule.html" class="nav-item" onclick="setActive(this)">
+            <i>📅</i>
+            <span>My Schedule</span>
+        </a>
+
+        <!-- Progress Check -->
+        <!--<a href="pages/progress-check.html" class="nav-item" onclick="setActive(this)">
+            <i>📊</i>
+            <span>Progress Check</span>
+        </a>
+
+        <!-- Daily Motivation -->
+        <!--<a href="pages/daily-motivation.html" class="nav-item" onclick="setActive(this)">
+            <i>💪</i>
+            <span>Daily Motivation</span>
+        </a>
+
+        <!-- Personal Dashboard -->
+        <!--<a href="pages/personal-dashboard.html" class="nav-item" onclick="setActive(this)">
+            <i>🏠</i>
+            <span>Personal Dashboard</span>
+        </a>
+
+        <!-- Quick Notes -->
+        <!--<a href="pages/quick-notes.html" class="nav-item" onclick="setActive(this)">
+            <i>📝</i>
+            <span>Quick Notes</span>
+        </a>
+
+        <div class="divider"></div>
+
+        <!-- Logout -->
+        <!--<a href="pages/logout.html" class="nav-item" onclick="setActive(this)">
+            <i>🚪</i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>-->
+
+<script>
+    // Set active menu item
+    function setActive(element) {
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+        
+        // Store the current page
+        sessionStorage.setItem('currentPage', element.querySelector('span').textContent);
+    }
+
+    // Load user data
+    document.addEventListener('DOMContentLoaded', function() {
+        const username = sessionStorage.getItem('planit_username');
+        const userEmail = sessionStorage.getItem('planit_userEmail') ;
+        
+        const nameElement = document.getElementById('displayName');
+        const emailElement = document.getElementById('displayEmail');
+        
+        if (nameElement) nameElement.textContent = username;
+        if (emailElement) emailElement.textContent = userEmail;
+    });
+</script> -->
+<!-- Sidebar Component - Copy this into each page -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo" onclick="goToDashboard()">
+            <div class="logo-icon">P</div>
+            <div class="logo-text">Plan<span>It</span></div>
+        </div>
+    </div>
+
+    <!-- User Profile -->
+    <div class="user-profile" id="userProfile">
+        <div class="user-name" id="displayName">Monisha</div>
+        <div class="user-email" id="displayEmail">monisha@email.com</div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu">
+        <!-- Smart Tasks -->
+        <a href="smart-tasks.html" class="nav-item" id="nav-smart-tasks" onclick="setActive(this)">
+            <i>✓</i>
+            <span>Smart Tasks</span>
+        </a>
+
+        <!-- Focus Timer -->
+        <a href="focus-timer.html" class="nav-item" id="nav-focus-timer" onclick="setActive(this)">
+            <i>⏱️</i>
+            <span>Focus Timer</span>
+        </a>
+
+        <!-- My Schedule -->
+        <a href="my-schedule.html" class="nav-item" id="nav-my-schedule" onclick="setActive(this)">
+            <i>📅</i>
+            <span>My Schedule</span>
+        </a>
+
+        <!-- Progress Check -->
+        <a href="progress-check.html" class="nav-item" id="nav-progress-check" onclick="setActive(this)">
+            <i>📊</i>
+            <span>Progress Check</span>
+        </a>
+
+        <!-- Daily Motivation -->
+        <a href="daily-motivation.html" class="nav-item" id="nav-daily-motivation" onclick="setActive(this)">
+            <i>💪</i>
+            <span>Daily Motivation</span>
+        </a>
+
+        <!-- Personal Dashboard -->
+        <a href="personal-dashboard.html" class="nav-item" id="nav-personal-dashboard" onclick="setActive(this)">
+            <i>🏠</i>
+            <span>Personal Dashboard</span>
+        </a>
+
+        <!-- Quick Notes -->
+        <a href="quick-notes.html" class="nav-item" id="nav-quick-notes" onclick="setActive(this)">
+            <i>📝</i>
+            <span>Quick Notes</span>
+        </a>
+
+        <div class="divider"></div>
+
+        <!-- Logout -->
+        <a href="logout.html" class="nav-item" id="nav-logout" onclick="setActive(this)">
+            <i>🚪</i>
+            <span>Logout</span>
+        </a>
+    </div>
+</div>
+
+<script>
+    // Set active menu item based on current page
+    function setActive(element) {
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+        
+        // Store the current page
+        sessionStorage.setItem('currentPage', element.querySelector('span').textContent);
+    }
+
+    // Go to dashboard with correct path
+    function goToDashboard() {
+        // Check if we're in the pages folder
+        const path = window.location.pathname;
+        if (path.includes('/pages/')) {
+            window.location.href = '../home.html';
+        } else {
+            window.location.href = 'home.html';
+        }
+    }
+
+    // Load user data
+    document.addEventListener('DOMContentLoaded', function() {
+        const username = sessionStorage.getItem('planit_username') || localStorage.getItem('planit_username');
+        const userEmail = sessionStorage.getItem('planit_userEmail') || localStorage.getItem('planit_userEmail');
+        
+        const nameElement = document.getElementById('displayName');
+        const emailElement = document.getElementById('displayEmail');
+        
+        if (nameElement) nameElement.textContent = username || 'Monisha';
+        if (emailElement) emailElement.textContent = userEmail || 'monisha@planit.com';
+        
+        // Highlight current page in sidebar
+        highlightCurrentPage();
+    });
+
+    function highlightCurrentPage() {
+        const currentPath = window.location.pathname.split('/').pop();
+        
+        // Remove active class from all
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Add active class to current page
+        document.querySelectorAll('.nav-item').forEach(item => {
+            const href = item.getAttribute('href');
+            if (href && href === currentPath) {
+                item.classList.add('active');
+            }
+        });
+        
+        // Special case for home.html
+        if (currentPath === 'home.html' || currentPath === '') {
+            document.getElementById('nav-personal-dashboard')?.classList.add('active');
+        }
+    }
+</script> 

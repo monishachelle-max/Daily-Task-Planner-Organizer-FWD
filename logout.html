@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - PlanIt</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2e1065 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            animation: gradientShift 20s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 50%;
+            animation: float 8s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .logout-container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 60px;
+            padding: 60px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+            animation: fadeInScale 0.8s ease;
+            text-align: center;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+            animation: float 3s ease infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-text {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .logo-text span {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Icon */
+        .logout-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 60px;
+            color: #8b5cf6;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px 10px rgba(139, 92, 246, 0.3);
+            }
+        }
+
+        /* Title */
+        h1 {
+            color: white;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Message */
+        .message {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* User Info */
+        .user-info {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 36px;
+            color: white;
+            font-weight: 600;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+        }
+
+        /* Stats */
+        .logout-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            color: #8b5cf6;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-logout:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            transform: scale(1.05);
+        }
+
+        .btn-return {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: white;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-return:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            color: #10b981;
+            font-size: 18px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-message i {
+            margin-right: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+        }
+
+        .footer i {
+            color: #ef4444;
+            margin: 0 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logout-container {
+                padding: 40px 20px;
+            }
+            
+            .logo-text {
+                font-size: 32px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .message {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Logout Container -->
+    <div class="logout-container">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">P</div>
+            <div class="logo-text">Plan<span>It</span></div>
+        </div>
+
+        <!-- Logout Icon -->
+        <div class="logout-icon">
+            <i class="fas fa-sign-out-alt"></i>
+        </div>
+
+        <!-- Title -->
+        <h1>Ready to Leave?</h1>
+
+        <!-- Message -->
+        <div class="message" id="message">
+            You're about to log out of your account. <br>
+            Your data will be saved and ready for you when you return.
+        </div>
+
+        <!-- User Info -->
+        <div class="user-info" id="userInfo">
+            <div class="user-avatar" id="userAvatar">M</div>
+            <div class="user-name" id="userName">Monisha</div>
+            <div class="user-email" id="userEmail">monisha@planit.com</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="logout-stats" id="logoutStats">
+            <div class="stat-item">
+                <div class="stat-value" id="taskCount">0</div>
+                <div class="stat-label">Tasks</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="streakCount">0</div>
+                <div class="stat-label">Day Streak</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="noteCount">0</div>
+                <div class="stat-label">Notes</div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="spinner" id="spinner"></div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            Successfully logged out! Redirecting...
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group" id="buttonGroup">
+            <button class="btn btn-logout" onclick="confirmLogout()">
+                <i class="fas fa-sign-out-alt"></i> Yes, Log Me Out
+            </button>
+            <a href="../home.html" class="btn btn-cancel">
+                <i class="fas fa-times"></i> Cancel, Go Back
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <i class="fas fa-heart"></i> See you soon! <i class="fas fa-heart"></i>
+        </div>
+    </div>
+
+    <script>
+        // ========== GENERATE PARTICLES ==========
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (5 + Math.random() * 5) + 's';
+                
+                // Random size
+                const size = 2 + Math.random() * 6;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random color
+                const colors = ['#8b5cf6', '#ec4899', '#3b82f6', '#10b981'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.opacity = 0.1 + Math.random() * 0.3;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // ========== LOAD USER DATA ==========
+        function loadUserData() {
+            // Get username from storage
+            let username = localStorage.getItem('planit_username') || sessionStorage.getItem('planit_username');
+            let userEmail = localStorage.getItem('planit_userEmail') || sessionStorage.getItem('planit_userEmail');
+            
+            if (!username) {
+                // If no user, redirect to login
+                window.location.href = '../login.html';
+                return;
+            }
+            
+            // Display user info
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userEmail').textContent = userEmail || username.toLowerCase().replace(/\s+/g, '.') + '@planit.com';
+            document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+            
+            // Load stats
+            loadUserStats(username);
+        }
+
+        // ========== LOAD USER STATS ==========
+        function loadUserStats(username) {
+            // Load tasks
+            const allTasks = JSON.parse(localStorage.getItem('planit_tasks')) || {};
+            const tasks = allTasks[username] || [];
+            
+            // Load notes
+            const allNotes = JSON.parse(localStorage.getItem('planit_notes')) || {};
+            const notes = allNotes[username] || [];
+            
+            // Calculate streak
+            const streak = calculateStreak(tasks);
+            
+            // Update stats display
+            document.getElementById('taskCount').textContent = tasks.length;
+            document.getElementById('streakCount').textContent = streak;
+            document.getElementById('noteCount').textContent = notes.length;
+        }
+
+        // ========== CALCULATE STREAK ==========
+        function calculateStreak(tasks) {
+            if (tasks.length === 0) return 0;
+            
+            let streak = 0;
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Check if completed any tasks today
+            const completedToday = tasks.some(t => t.completed && t.date === today);
+            if (!completedToday) return 0;
+            
+            streak = 1;
+            let currentDate = new Date(today);
+            
+            // Check previous days
+            for (let i = 1; i <= 30; i++) {
+                currentDate.setDate(currentDate.getDate() - 1);
+                const dateStr = currentDate.toISOString().split('T')[0];
+                
+                const completedOnDate = tasks.some(t => t.completed && t.date === dateStr);
+                if (completedOnDate) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        // ========== LOGOUT FUNCTION ==========
+        function confirmLogout() {
+            // Hide buttons
+            document.getElementById('buttonGroup').style.display = 'none';
+            
+            // Show spinner
+            document.getElementById('spinner').style.display = 'block';
+            
+            // Update message
+            document.getElementById('message').innerHTML = 'Logging you out securely...';
+            
+            // Simulate logout process
+            setTimeout(() => {
+                // Hide spinner
+                document.getElementById('spinner').style.display = 'none';
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Update message
+                document.getElementById('message').innerHTML = 'You have been successfully logged out.';
+                
+                // Clear session storage only (keep localStorage data)
+                sessionStorage.clear();
+                
+                // Remove user session data but keep tasks
+                // localStorage remains intact
+                
+                // Redirect to login after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '../login.html';
+                }, 2000);
+            }, 2000);
+        }
+
+        // ========== PAGE ENTRY ANIMATION ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            loadUserData();
+            
+            // Add fade-in animation to container
+            const container = document.querySelector('.logout-container');
+            container.style.opacity = '0';
+            setTimeout(() => {
+                container.style.transition = 'opacity 0.5s ease';
+                container.style.opacity = '1';
+            }, 100);
+        });
+
+        // ========== PREVENT ACCIDENTAL LOGOUT ==========
+        window.addEventListener('beforeunload', function(e) {
+            // Only show warning if user is trying to close tab
+            // Not when actually logging out
+            if (!sessionStorage.getItem('planit_username')) {
+                return undefined;
+            }
+            
+            // Uncomment to enable warning
+            // e.preventDefault();
+            // e.returnValue = '';
+        });
+    </script>
+</body>
+</html>

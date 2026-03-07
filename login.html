@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login to Plan It</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#ffffff,#9c5bff);
+    overflow:hidden;
+}
+
+/* OUTER GLASS CONTAINER */
+.outer-box{
+    width:90%;
+    max-width:1200px;
+    padding:60px;
+    border-radius:30px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 60px rgba(255,255,255,0.3);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:95%;
+    max-width:1400px;
+}
+
+/* SIDE IMAGES */
+.side{
+    width:1000px;
+    display:flex;
+    justify-content:center;
+    /*position:relative;*/
+    align-items:center;
+}
+
+.side img{
+    width:100%;
+    max-height:520px;
+    object-fit:contain;
+    position: relative;
+    /*left:50px;
+    top:30px;*/
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float{
+    0%{ transform: translateY(0px); }
+    50%{ transform: translateY(-15px);}
+    100%{ transform: translateY(0px);}
+    }
+
+
+/* CENTER LOGIN BOX */
+.login-box{
+    width:400px;
+    padding:40px;
+    border-radius:25px;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(25px);
+    text-align:center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.login-box h2{
+    color:#5b4db3;
+    margin-bottom:30px;
+    font-weight:600;
+}
+
+/* INPUTS */
+.input-box{
+    margin-bottom:20px;
+}
+
+.input-box input{
+    width:100%;
+    padding:12px 15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    outline:none;
+    font-size:15px;
+}
+
+/* BUTTON */
+.login-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    font-weight:600;
+    color:white;
+    background: linear-gradient(to right,#5f7cff,#9c5bff);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    transform:scale(1.05);
+}
+
+.creator{
+    margin-top:20px;
+    font-size:14px;
+    color:#444;
+}
+.password-box{
+    position: relative;
+}
+
+.password-box input{
+    /*padding-right: 40px;*/
+    width:100%;
+    padding:12px 40px 12px 15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:15px;
+}
+
+.toggle-password{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color:#555;
+}
+@media(max-width:1000px){
+    .outer-box{
+        flex-direction:column;
+        gap:40px;
+    }
+    .side{/*change*/
+        width:300px;
+    }
+    
+}
+</style>
+</head>
+
+<body>
+
+<div class="outer-box">
+
+   <!--  LEFT BOY -->
+    <!--<div class="side">
+        <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+    </div>-->
+
+    <!-- LOGIN CENTER -->
+    <div class="login-box">
+        <h2>Login to Plan It</h2>
+         <form action="home.html">
+        <div class="input-box">
+            <input type="text"id="username" placeholder="Enter Your Name" required> 
+        </div>
+        
+
+        <script>
+          // Default password for login
+          const DEFAULT_PASSWORD = "12345";
+          
+          function login(){
+    let name = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value;
+
+    if(name === ""){
+        alert("Please enter your name");
+        return;
+    }
+    
+    if(password === ""){
+        alert("Please enter your password");
+        return;
+    }
+    
+    if(password !== DEFAULT_PASSWORD){
+        alert("Invalid password! Default password is: " + DEFAULT_PASSWORD);
+        return;
+    }
+    
+    // Store name in both localStorage and sessionStorage for redundancy
+    localStorage.setItem("planit_username", name);
+    sessionStorage.setItem("planit_username", name);
+    
+    // Store password
+    localStorage.setItem("planit_password", password);
+    sessionStorage.setItem("planit_password", password);
+    
+    // Create email from name
+    let email = name.toLowerCase().replace(/\s+/g, '.') + '@planit.com';
+    localStorage.setItem("planit_userEmail", email);
+    sessionStorage.setItem("planit_userEmail", email);
+    
+    // Redirect to dashboard
+    window.location.href = 'home.html';
+    /*localStorage.removeItem("username");//remove old name
+    localStorage.setItem("username", name);  // SAVE NAME
+    window.location.href = "home.html";      // Go to dashboard*/
+}
+</script>  
+        
+
+        <div class="input-box password-box">
+    <input type="password" id="password" placeholder="Enter Password" required>
+   <span class="toggle-password" onclick="togglePassword()">👁</span>
+</div>
+<script>
+function togglePassword(){
+    let password = document.getElementById("password");
+
+    if(password.type === "password"){
+        password.type = "text";
+        
+    } else {
+        password.type = "password";
+       
+    }
+}
+// Load saved credentials when page loads
+function loadSavedCredentials(){
+    let savedUsername = localStorage.getItem("planit_username");
+    let savedPassword = localStorage.getItem("planit_password");
+    
+    if(savedUsername){
+        document.getElementById("username").value = savedUsername;
+    }
+    if(savedPassword){
+        document.getElementById("password").value = savedPassword;
+    }
+}
+
+// Run when page loads
+window.addEventListener("load", loadSavedCredentials);
+
+</script>
+<button type="button" class="login-btn" onclick="login()">Login</button>
+
+
+          </form>
+        <div class="creator">
+            Created by Monisha Raghini Chelle
+        </div>
+    </div>
+
+    <!-- RIGHT GIRL -->
+    <div class="side">
+        <img src="GB.png">
+    </div>
+
+</div>
+
+</body>
+</html>
+
