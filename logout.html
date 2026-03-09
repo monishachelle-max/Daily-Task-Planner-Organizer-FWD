@@ -56,6 +56,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .particle {
@@ -115,6 +116,13 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 40px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo-icon {
@@ -399,10 +407,10 @@
     <!-- Logout Container -->
     <div class="logout-container">
         <!-- Logo -->
-        <div class="logo">
+        <a href="index.html" class="logo">
             <div class="logo-icon">P</div>
             <div class="logo-text">Plan<span>It</span></div>
-        </div>
+        </a>
 
         <!-- Logout Icon -->
         <div class="logout-icon">
@@ -503,7 +511,7 @@
             
             if (!username) {
                 // If no user, redirect to login
-                window.location.href = 'login.html';
+                window.location.href = './login.html';
                 return;
             }
             
@@ -595,7 +603,7 @@
                 
                 // Redirect to login after 2 seconds
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = './login.html';
                 }, 2000);
             }, 2000);
         }
